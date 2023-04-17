@@ -3,7 +3,7 @@ const connection = require('../database/connection')
 class Colaborador{
 
  async getColaboradores(){
-    const [rows] = await connection.query('select * from colaborador')
+    const [rows] = await connection.query("select * from colaborador where status = 'A'")
     return rows
 }
 

@@ -3,7 +3,7 @@ const connection = require('../database/connection')
 class Empresa{
 
  async getFuncionarios(loja){
-    const [rows] = await connection.query(`select * from colaborador where loja = ${loja}`)
+    const [rows] = await connection.query(`select * from colaborador where loja = ${loja} and status = 'A'`)
     return rows
 }
 
@@ -19,7 +19,7 @@ async getFarmacia(loja){
 }  
 
 async getVendasDiarias(loja){
-    const [rows] = await connection.query(`SELECT vendasm.numvenda, vendasm.datae, vendasm.horae, vendasm.atendente, vendasm.vlr_liquido, colaborador.nome AS nome_atendente FROM vendasm INNER JOIN colaborador ON vendasm.atendente = colaborador.codigo where datae=current_date() and empresa = ${loja} ;`)
+    const [rows] = await connection.query(`SELECT vendasm.numvenda, vendasm.datae, vendasm.horae, vendasm.atendente, vendasm.vlr_liquido, colaborador.nome AS nome_atendente FROM vendasm INNER JOIN colaborador ON vendasm.atendente = colaborador.codigo where datae=current_date() and empresa = ${loja} order by horae;`)
     return rows
 
 }
