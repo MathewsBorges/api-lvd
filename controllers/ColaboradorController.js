@@ -1,21 +1,26 @@
-const Colaborador = require('../models/Colaborador')
+const Colaborador = require("../models/Colaborador");
 
-class ColaboradorController{
+class ColaboradorController {
+  async getColaborador(req, res) {
+    const colaborador = await Colaborador.getColaboradores();
+    res.json(colaborador);
+  }
+
+  async getColaboradorByID(req, res) {
+    const id = req.params.id;
+    const colaborador = await Colaborador.getColaboradorByID(id);
+    res.json(colaborador);
+  }
+
+  async countVendasDiarias(req, res) {
+    const id = req.params.id;
+    const count = await Colaborador.countVendasDiarias(id);
+    res.json(count)
+  }
 
 
- async getColaborador(req,res){
-    const colaborador =  await Colaborador.getColaboradores();
-    res.json(colaborador)
+
+
 }
-
-async getColaboradorByID(req,res){
-    const id = req.params.id
-    const colaborador =  await Colaborador.getColaboradorByID(id);
-    res.json(colaborador)
-}
-
-
-}
-
 
 module.exports = new ColaboradorController();
