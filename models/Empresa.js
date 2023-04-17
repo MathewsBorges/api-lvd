@@ -40,6 +40,10 @@ async getValorVendasMensal(loja){
     return rows
 }
 
+async getValorVendasAnuais(loja){
+    const [rows] = await connection.query(`select sum(vlr_liquido) as total from vendasm WHERE YEAR(datae) = YEAR(CURRENT_DATE()) and empresa = ${loja} `)
+    return rows
+}
 
 async countVendasDiarias(loja){
     const [rows] = await connection.query(`select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas, colaborador.nome as nome_atendente from vendasm inner join colaborador on vendasm.atendente = colaborador.codigo where datae = current_date() and empresa = ${loja} group by atendente`)
@@ -50,6 +54,12 @@ async countVendasMensais(loja){
     const [rows] = await connection.query(`select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas, colaborador.nome as nome_atendente from vendasm inner join colaborador on vendasm.atendente = colaborador.codigo where MONTH(datae) = MONTH(CURRENT_DATE()) AND YEAR(datae) = YEAR(CURRENT_DATE()) and empresa = ${loja} group by atendente`)
     return rows
 }
+
+async countVendasAnuais(loja){
+    const [rows] = await connection.query(`select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas from vendasm  where YEAR(datae) = YEAR(CURRENT_DATE()) and empresa = ${loja}`)
+    return rows
+}
+
 
 
 }

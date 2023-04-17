@@ -20,8 +20,10 @@ router.get('/empresa/vendas_diarias/:loja', EmpresaController.getVendasDiarias) 
 router.get('/empresa/vendas_mensal/:loja', EmpresaController.getVendasMensal) //Busca Vendas Mensais da Farmácia
 router.get('/empresa/vendas_diarias/valor/:loja', EmpresaController.getValorVendasDiarias) //Busca o valor de vendas diárias da Farmácia
 router.get('/empresa/vendas_mensal/valor/:loja', EmpresaController.getValorVendasMensal) //Busca o valor de vendas mensais da Farmácia 
+router.get('/empresa/vendas_anuais/valor/:loja', EmpresaController.getValorVendasAnuais)
 router.get('/empresa/count_diarias/:loja', EmpresaController.countVendasDiarias) //Busca Quantidade de Vendas separados por funcionários por dia
 router.get('/empresa/count_mensais/:loja', EmpresaController.countVendasMensais) //Busca Quantidade de Vendas separados por funcionários por mes
+router.get('/empresa/count_anuais/:loja', EmpresaController.countVendasAnuais) //Busca Quantidade de Vendas separados por funcionários por mes
 
 
 

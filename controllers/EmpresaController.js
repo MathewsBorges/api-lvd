@@ -43,6 +43,13 @@ class EmpresaController {
     res.json(vendas);
   }
 
+  async getValorVendasAnuais(req, res) {
+    const loja = req.params.loja;
+    const vendas = await Empresa.getValorVendasAnuais(loja);
+    res.json(vendas);
+  }
+
+
   async countVendasDiarias(req, res) {
     const loja = req.params.loja;
     const count = await Empresa.countVendasDiarias(loja);
@@ -52,6 +59,12 @@ class EmpresaController {
   async countVendasMensais(req, res) {
     const loja = req.params.loja;
     const count = await Empresa.countVendasMensais(loja);
+    res.json(count);
+  }
+
+  async countVendasAnuais(req, res) {
+    const loja = req.params.loja;
+    const count = await Empresa.countVendasAnuais(loja);
     res.json(count);
   }
 }
