@@ -11,6 +11,7 @@ router.get('/', (req,res)=>{
 //Rotas Colaboradores
 router.get('/colaborador/', ControllerColaborador.getColaborador) //Busca todos os Colaboradores
 router.get('/colaborador/:id', ControllerColaborador.getColaboradorByID) //Busca colaborador pelo id 
+router.get('/colaborador/login/:cpf&:senha', ControllerColaborador.getLogin) //Busca Login 
 
 //Rotas Empresas 
 router.get('/empresa/funcionario/:loja', EmpresaController.getFuncionarios) //Busca Funcionários da Loja
