@@ -3,7 +3,7 @@ const connection = require('../database/connection')
 class Empresa{
 
  async getFuncionarios(loja){
-    const [rows] = await connection.query(`select * from colaborador where loja = ${loja} and status = 'A'`)
+    const [rows] = await connection.query(`select * from colaborador where loja = ${loja} and status = 'A' and perfil != 11`)
     return rows
 }
 
@@ -14,7 +14,7 @@ async getMetaFarmacia(loja){
 
 
 async getFarmacia(loja){
-    const [rows] = await connection.query(`select * from empresa where codigo = ${loja}`)
+    const [rows] = await connection.query(`select codigo, nome, nome_res,endereco,numero,bairro,cep,telefone,cnpj from empresa where codigo = ${loja}`)
     return rows
 }  
 

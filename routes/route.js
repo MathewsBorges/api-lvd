@@ -24,7 +24,7 @@ router.get('/empresa/vendas_mensal/valor/:loja', EmpresaController.getValorVenda
 router.get('/empresa/vendas_anuais/valor/:loja', EmpresaController.getValorVendasAnuais)
 router.get('/empresa/count_diarias/:loja', EmpresaController.countVendasDiarias) //Busca Quantidade de Vendas separados por funcionários por dia
 router.get('/empresa/count_mensais/:loja', EmpresaController.countVendasMensais) //Busca Quantidade de Vendas separados por funcionários por mes
-router.get('/empresa/count_anuais/:loja', EmpresaController.countVendasAnuais) //Busca Quantidade de Vendas separados por funcionários por mes
+router.get('/empresa/count_anuais/:loja', EmpresaController.countVendasAnuais) //Busca Quantidade de Vendas por Ano
 
 
 
