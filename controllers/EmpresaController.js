@@ -49,6 +49,20 @@ class EmpresaController {
     res.json(vendas);
   }
 
+  async getValorAnual(req, res) {
+    const vendas = await Empresa.getValorAnual();
+    res.json(vendas);
+  }
+
+  async getValorMensal(req, res) {
+    const vendas = await Empresa.getValorMensal();
+    res.json(vendas);
+  }
+
+  async getValorDiaria(req, res) {
+    const vendas = await Empresa.getValorDiaria();
+    res.json(vendas);
+  }
 
   async countVendasDiarias(req, res) {
     const loja = req.params.loja;
@@ -67,6 +81,36 @@ class EmpresaController {
     const count = await Empresa.countVendasAnuais(loja);
     res.json(count);
   }
+
+  async getRelatorio(req, res) {
+    const loja = req.params.loja;
+    const vendaMensal = await Empresa.getValorVendasMensal(loja);
+    const vendaDiaria = await Empresa.getValorVendasDiarias(loja);
+    const meta = await Empresa.getMetaFarmacia(loja);
+    const relatorio = {'vendaMensal':vendaMensal, 'vendaDiaria':vendaDiaria, 'meta':meta};
+    res.json(relatorio);
+  }
+
+async getRelatorioDiario(req,res){
+  const relatorio = await Empresa.getRelatorioDiario();
+  res.json(relatorio)
+}
+
+async getRelatorioMensal(req,res){
+  const relatorio = await Empresa.getRelatorioMensal();
+  res.json(relatorio)
+}
+
+async getRelatorioAnual(req,res){
+  const relatorio = await Empresa.getRelatorioAnual();
+  res.json(relatorio)
+}
+
+
+
+
+
+
 }
 
 module.exports = new EmpresaController();
