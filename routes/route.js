@@ -39,8 +39,17 @@ router.get('/empresa/vendas/diaria/', EmpresaController.getValorDiaria);
 router.get('/empresa/relatorio_farmacia/diario/', EmpresaController.getRelatorioDiario)
 router.get('/empresa/relatorio_farmacia/mensal/', EmpresaController.getRelatorioMensal)
 router.get('/empresa/relatorio_farmacia/anual/', EmpresaController.getRelatorioAnual)
+router.get('/empresa/relatorio_farmacia/geral/', EmpresaController.getRelatorioGeral)
 
 
+
+
+//Pegar venda diárias da farmacia 
+
+router.get('/empresa/listar_vendas/:loja', EmpresaController.getListaVendas)
+
+
+//Relatorio Geral
 
 
 

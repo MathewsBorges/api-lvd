@@ -1,3 +1,4 @@
+const { getListaVendas } = require("../models/Empresa");
 const Empresa = require("../models/Empresa");
 
 class EmpresaController {
@@ -87,8 +88,19 @@ class EmpresaController {
     const vendaMensal = await Empresa.getValorVendasMensal(loja);
     const vendaDiaria = await Empresa.getValorVendasDiarias(loja);
     const meta = await Empresa.getMetaFarmacia(loja);
-    const relatorio = {'vendaMensal':vendaMensal, 'vendaDiaria':vendaDiaria, 'meta':meta};
+    const relatorio = {'codigo': loja, 'vendaMensal':vendaMensal[0].total, 'vendaDiaria':vendaDiaria[0].total, 'meta':meta[0].meta};
     res.json(relatorio);
+  }
+
+  async getRelatorioGeral (req, res){
+    let vendasMensal = await Empresa.getRelatorioMensal();
+    const vendasDiaria = await Empresa.getRelatorioDiario();
+    const metas = await Empresa.getMetas();
+    
+    
+
+    const relatorio = {'vendasMensal':vendasMensal, 'vendasDiaria' : vendasDiaria, 'metas' : metas}
+    res.json(relatorio)
   }
 
 async getRelatorioDiario(req,res){
@@ -103,6 +115,12 @@ async getRelatorioMensal(req,res){
 
 async getRelatorioAnual(req,res){
   const relatorio = await Empresa.getRelatorioAnual();
+  res.json(relatorio)
+}
+
+async getListaVendas(req,res){
+  const loja = req.params.loja;
+  const relatorio = await Empresa.getListaVendas(loja);
   res.json(relatorio)
 }
 
