@@ -87,8 +87,9 @@ class EmpresaController {
     const loja = req.params.loja;
     const vendaMensal = await Empresa.getValorVendasMensal(loja);
     const vendaDiaria = await Empresa.getValorVendasDiarias(loja);
+    const numeroVendas = await Empresa.getNumeroVendas(loja);
     const meta = await Empresa.getMetaFarmacia(loja);
-    const relatorio = {'codigo': loja, 'vendaMensal':vendaMensal[0].total, 'vendaDiaria':vendaDiaria[0].total, 'meta':meta[0].meta};
+    const relatorio = {'codigo': loja, 'total_vendas':vendaMensal[0].total, 'totalVendasDiarias':vendaDiaria[0].total, 'meta':meta[0].meta, 'numero_vendas':numeroVendas[0].numero};
     res.json(relatorio);
   }
 
@@ -96,10 +97,29 @@ class EmpresaController {
     let vendasMensal = await Empresa.getRelatorioMensal();
     const vendasDiaria = await Empresa.getRelatorioDiario();
     const metas = await Empresa.getMetas();
-    
-    
 
-    const relatorio = {'vendasMensal':vendasMensal, 'vendasDiaria' : vendasDiaria, 'metas' : metas}
+    vendasMensal.forEach(relatorio => {
+      for (let i = 0; i < metas.length; i++) {
+          if(metas[i].codigo == relatorio.codigo){
+            let meta = metas[i].meta;
+            relatorio.meta = meta;
+          }
+        
+      }
+
+      for (let i = 0; i < vendasDiaria.length; i++) {
+        if(vendasDiaria[i].codigo == relatorio.codigo){
+          relatorio.vendasDiarias = vendasDiaria[i].numero_vendas
+          relatorio.totalVendasDiarias = vendasDiaria[i].total_vendas
+        }
+        
+      }
+
+
+
+    });
+
+    const relatorio = [...vendasMensal]
     res.json(relatorio)
   }
 
