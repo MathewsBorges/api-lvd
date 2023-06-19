@@ -73,12 +73,7 @@ class Empresa {
 
   async countVendasMensais(loja) {
     const [rows] = await connection.query(
-      `select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas, colaborador.nome as nome_atendente, perfil.nome as perfil from vendasm inner join colaborador on vendasm.atendente = colaborador.codigo inner join perfil on perfil.codigo  = colaborador.perfil where MONTH(datae) = MONTH(CURRENT_DATE()) AND YEAR(datae) = YEAR(CURRENT_DATE()) and empresa = ${loja} group by atendente order by total_vendas desc
-
-
-
-
-      `
+      `select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas, colaborador.nome as nome_atendente, perfil.nome as perfil from vendasm inner join colaborador on vendasm.atendente = colaborador.codigo inner join perfil on perfil.codigo  = colaborador.perfil where MONTH(datae) = MONTH(CURRENT_DATE()) AND YEAR(datae) = YEAR(CURRENT_DATE()) and empresa = ${loja} group by atendente order by total_vendas desc`
     );
     return rows;
   }
@@ -115,21 +110,21 @@ class Empresa {
 
   async getRelatorioDiario() {
     const [rows] = await connection.query(
-      `select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas, empresa.codigo, empresa.nome_res as empresa from vendasm inner join empresa on vendasm.empresa = empresa.codigo where datae = current_date() group by empresa`
+      `select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas, empresa.codigo, empresa.nome_res as empresa from vendasm inner join empresa on vendasm.empresa = empresa.codigo where datae = current_date() and obs_ven = '' group by empresa`
     );
     return rows;
   }
 
   async getRelatorioMensal() {
     const [rows] = await connection.query(
-      `select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas, empresa.codigo, empresa.nome_res as empresa from vendasm inner join empresa on vendasm.empresa = empresa.codigo  where MONTH(datae) = MONTH(CURRENT_DATE()) AND YEAR(datae) = YEAR(CURRENT_DATE()) AND obs_venda = '' group by empresa`
+      `select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas, empresa.codigo, empresa.nome_res as empresa from vendasm inner join empresa on vendasm.empresa = empresa.codigo  where MONTH(datae) = MONTH(CURRENT_DATE()) AND YEAR(datae) = YEAR(CURRENT_DATE()) and obs_ven = '' group by empresa`
     );
     return rows;
   }
 
   async getRelatorioAnual() {
     const [rows] = await connection.query(
-      `select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas, empresa.nome_res as empresa from vendasm inner join empresa on vendasm.empresa = empresa.codigo where YEAR(datae) = YEAR(CURRENT_DATE()) group by empresa`
+      `select count(*) as numero_vendas, sum(vlr_liquido) as total_vendas, empresa.codigo, empresa.nome_res as empresa from vendasm inner join empresa on vendasm.empresa = empresa.codigo where YEAR(datae) = YEAR(CURRENT_DATE()) and obs_ven = '' group by empresa`
     );
     return rows;
   }
