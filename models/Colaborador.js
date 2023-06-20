@@ -13,7 +13,7 @@ async getColaboradorByID(id){
 }
 
 async getLogin(cpf, senha) {
-    const [rows] = await connection.query(`select * from colaborador where cpf = '${cpf}' and senha_app = '${senha}' and perfil=2'`)
+    const [rows] = await connection.query(`select * from colaborador where cpf = '${cpf}' and senha_app = '${senha}' and perfil=2 and status='A'`)
     return rows
 }
 
